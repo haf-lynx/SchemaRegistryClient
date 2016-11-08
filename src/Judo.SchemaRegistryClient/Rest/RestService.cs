@@ -138,7 +138,7 @@ namespace Judo.SchemaRegistryClient.Rest
                 Method = method,
                 Content = content
             };
-            request.Headers.Add("content-type", Versions.SCHEMA_REGISTRY_V1_JSON_WEIGHTED);
+            content.Headers.Add("Content-Type", Versions.SCHEMA_REGISTRY_V1_JSON_WEIGHTED);
 
             var response = await _client.SendAsync(request);
             if (response.IsSuccessStatusCode)
