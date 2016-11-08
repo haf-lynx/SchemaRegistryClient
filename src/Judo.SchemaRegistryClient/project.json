@@ -3,6 +3,7 @@
   "buildOptions": {
     "debugType": "portable"
   },
+  "name":"SchemaRegistryClient",
   "dependencies": {
     "Microsoft.Hadoop.Avro-Core": "1.1.1-alpha00007",
     "Newtonsoft.Json": "9.0.1",
