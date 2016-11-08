@@ -4,6 +4,7 @@ namespace Judo.SchemaRegistryClient.Rest
     using System;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using Entities;
     using Entities.Requests;
@@ -138,7 +139,7 @@ namespace Judo.SchemaRegistryClient.Rest
                 Method = method,
                 Content = content
             };
-            content.Headers.Add("Content-Type", Versions.SCHEMA_REGISTRY_V1_JSON_WEIGHTED);
+            content.Headers.ContentType = new MediaTypeHeaderValue(Versions.SCHEMA_REGISTRY_V1_JSON_WEIGHTED);
 
             var response = await _client.SendAsync(request);
             if (response.IsSuccessStatusCode)
