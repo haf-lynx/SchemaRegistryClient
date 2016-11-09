@@ -1,19 +1,18 @@
 namespace Judo.SchemaRegistryClient.Rest.Entities.Requests
 {
-    using Newtonsoft.Json;
 
     public class RegisterSchemaRequest
     {
         public static RegisterSchemaRequest FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<RegisterSchemaRequest>(json);
+            return JsonUtils.Deserialize<RegisterSchemaRequest>(json);
         }
 
         public string Schema { get; set; }
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonUtils.Serialize(this);
         }
 
         public override string ToString()

@@ -9,13 +9,13 @@ namespace Judo.SchemaRegistryClient.Rest.Entities.Requests
 
         public static CompatibilityCheckResponse FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<CompatibilityCheckResponse>(json);
+            return JsonUtils.Deserialize<CompatibilityCheckResponse>(json);
         }
 
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonUtils.Serialize(this);
         }
 
     }

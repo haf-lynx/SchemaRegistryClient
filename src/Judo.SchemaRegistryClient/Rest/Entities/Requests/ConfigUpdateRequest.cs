@@ -8,13 +8,13 @@ namespace Judo.SchemaRegistryClient.Rest.Entities.Requests
 
         public static ConfigUpdateRequest FromJson(string json)
         {
-            return JsonConvert.DeserializeObject<ConfigUpdateRequest>(json);
+            return JsonUtils.Deserialize<ConfigUpdateRequest>(json);
         }
 
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonUtils.Serialize(this);
         }
 
     }

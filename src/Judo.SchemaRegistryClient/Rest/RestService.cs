@@ -150,20 +150,14 @@ namespace Judo.SchemaRegistryClient.Rest
                 }
 
                 var body = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(body, new JsonSerializerSettings()
-                {
-                    ContractResolver = new DefaultContractResolver()
-                    {
-                        NamingStrategy = new SnakeCaseNamingStrategy()
-                    }
-                });
+                return JsonUtils.Deserialize<T>(body);
             }
             else
             {
                 ErrorMessage errorMessage;
                 try
                 {
-                    errorMessage = JsonConvert.DeserializeObject<ErrorMessage>(response.ReasonPhrase);
+                    errorMessage = JsonUtils.Deserialize<ErrorMessage>(response.ReasonPhrase);
                 }
                 catch (Exception ex)
                 {
