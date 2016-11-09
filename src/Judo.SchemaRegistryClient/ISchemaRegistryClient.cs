@@ -5,7 +5,7 @@ using Microsoft.Hadoop.Avro.Schema;
 
 namespace Judo.SchemaRegistryClient
 {
-    interface ISchemaRegistryClient
+    public interface ISchemaRegistryClient
     {
         Task<int> RegisterAsync(string subject, Schema schema);
 
