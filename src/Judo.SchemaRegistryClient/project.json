@@ -5,7 +5,7 @@
   },
   "name":"SchemaRegistryClient",
   "dependencies": {
-    "Microsoft.Hadoop.Avro2": "1.2.1",
+    "Microsoft.Hadoop.Avro-Core":"1.1.1-alpha00008",
     "Newtonsoft.Json": "9.0.1",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.Extensions.Logging": "1.0.0",
