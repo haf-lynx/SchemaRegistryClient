@@ -295,7 +295,7 @@
           "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "Microsoft.Hadoop.Avro2/1.2.1": {
+      "Microsoft.Hadoop.Avro-Core/1.1.1-alpha00008": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
@@ -304,10 +304,10 @@
           "protobuf-net": "2.1.0"
         },
         "compile": {
-          "lib/netstandard1.6/Microsoft.Hadoop.Avro.dll": {}
+          "lib/netstandard1.6/Microsoft.Hadoop.Avro-Core.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.6/Microsoft.Hadoop.Avro.dll": {}
+          "lib/netstandard1.6/Microsoft.Hadoop.Avro-Core.dll": {}
         }
       },
       "Microsoft.NETCore.App/1.0.1": {
@@ -2562,7 +2562,7 @@
           "lib/netstandard1.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "Microsoft.Hadoop.Avro2/1.2.1": {
+      "Microsoft.Hadoop.Avro-Core/1.1.1-alpha00008": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "9.0.1",
@@ -2573,10 +2573,10 @@
           "System.Runtime.Serialization"
         ],
         "compile": {
-          "lib/net45/Microsoft.Hadoop.Avro.dll": {}
+          "lib/net45/Microsoft.Hadoop.Avro-Core.dll": {}
         },
         "runtime": {
-          "lib/net45/Microsoft.Hadoop.Avro.dll": {}
+          "lib/net45/Microsoft.Hadoop.Avro-Core.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.0.1": {
@@ -3298,15 +3298,15 @@
         "lib/netstandard1.0/Microsoft.Extensions.Primitives.xml"
       ]
     },
-    "Microsoft.Hadoop.Avro2/1.2.1": {
-      "sha512": "fAdsxPg3QrELA/BfmedzWkGch7U53Hr05sG+mkaSENZYxPWvkEAmhV+/+Xz2PhI5CC7ZRjoUFCGTLT4NXSUZmw==",
+    "Microsoft.Hadoop.Avro-Core/1.1.1-alpha00008": {
+      "sha512": "3kSGHFaA9tcUSUi5lLqr0t73A8WZRGGtHNrPFow6mN7+OzyrARFw8djYMJvc6o1iphiX+FhfKz++YqAssQNUKg==",
       "type": "package",
-      "path": "Microsoft.Hadoop.Avro2/1.2.1",
+      "path": "Microsoft.Hadoop.Avro-Core/1.1.1-alpha00008",
       "files": [
-        "Microsoft.Hadoop.Avro2.1.2.1.nupkg.sha512",
-        "Microsoft.Hadoop.Avro2.nuspec",
-        "lib/net45/Microsoft.Hadoop.Avro.dll",
-        "lib/netstandard1.6/Microsoft.Hadoop.Avro.dll"
+        "Microsoft.Hadoop.Avro-Core.1.1.1-alpha00008.nupkg.sha512",
+        "Microsoft.Hadoop.Avro-Core.nuspec",
+        "lib/net45/Microsoft.Hadoop.Avro-Core.dll",
+        "lib/netstandard1.6/Microsoft.Hadoop.Avro-Core.dll"
       ]
     },
     "Microsoft.NETCore.App/1.0.1": {
@@ -8108,7 +8108,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
-      "Microsoft.Hadoop.Avro2 >= 1.2.1",
+      "Microsoft.Hadoop.Avro-Core >= 1.1.1-alpha00008",
       "Newtonsoft.Json >= 9.0.1"
     ],
     ".NETCoreApp,Version=v1.1": [
