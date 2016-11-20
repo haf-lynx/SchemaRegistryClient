@@ -19,7 +19,8 @@
           "type": "platform",
           "version": "1.0.1"
         }
-      },
+      }
+    },
     "netcoreapp1.0": {
       "dependencies": {
         "Microsoft.NETCore.App": {
@@ -28,6 +29,10 @@
         }
       }
     },
+    "net451":{
+      "dependencies":{
+	"System.Net.Http": "4.3.0"
+      }
     }
   }
 }
