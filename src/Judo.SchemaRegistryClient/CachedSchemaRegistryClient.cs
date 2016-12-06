@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Judo.SchemaRegistryClient.Rest;
@@ -12,9 +13,9 @@ namespace Judo.SchemaRegistryClient
         private const string DefaultKey = "___DEFAULT___KEY___";
         private readonly RestService _restService;
         private readonly int _identityDictionaryCapacity;
-        private readonly IDictionary<string, Dictionary<string, int>> _schemaCache;
-        private readonly IDictionary<string, Dictionary<int, Schema>> _idCache;
-        private readonly IDictionary<string, Dictionary<string, int>> _versionCache;
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, int>> _schemaCache;
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<int, Schema>> _idCache;
+        private readonly ConcurrentDictionary<string, ConcurrentDictionary<string, int>> _versionCache;
 
         public CachedSchemaRegistryClient(String baseUrl, int identityMapCapacity) : this(new RestService(baseUrl), identityMapCapacity)
         {
@@ -27,11 +28,11 @@ namespace Judo.SchemaRegistryClient
         public CachedSchemaRegistryClient(RestService restService, int identityMapCapacity)
         {
             this._identityDictionaryCapacity = identityMapCapacity;
-            this._schemaCache = new Dictionary<String, Dictionary<string, int>>();
-            this._idCache = new Dictionary<String, Dictionary<int, Schema>>();
-            this._versionCache = new Dictionary<String, Dictionary<string, int>>();
+            this._schemaCache = new ConcurrentDictionary<String, ConcurrentDictionary<string, int>>();
+            this._idCache = new ConcurrentDictionary<String, ConcurrentDictionary<int, Schema>>();
+            this._versionCache = new ConcurrentDictionary<String, ConcurrentDictionary<string, int>>();
             this._restService = restService;
-            this._idCache.Add(DefaultKey, new Dictionary<int, Schema>());
+            this._idCache.GetOrAdd(DefaultKey,k => new ConcurrentDictionary<int, Schema>());
         }
 
         private Task<int> RegisterAndGetIdAsync(String subject, Schema schema)
@@ -53,15 +54,15 @@ namespace Judo.SchemaRegistryClient
 
         public async Task<int> RegisterAsync(string subject, Schema schema)
         {
-            Dictionary<string, int> schemaIdDictionary;
+            ConcurrentDictionary<string, int> schemaIdDictionary;
             if (_schemaCache.ContainsKey(subject))
             {
                 schemaIdDictionary = _schemaCache[subject];
             }
             else
             {
-                schemaIdDictionary = new Dictionary<string, int>();
-                _schemaCache.Add(subject, schemaIdDictionary);
+                schemaIdDictionary = new ConcurrentDictionary<string, int>();
+                _schemaCache.GetOrAdd(subject, schemaIdDictionary);
             }
 
             if (schemaIdDictionary.ContainsKey(schema.ToString()))
@@ -75,8 +76,8 @@ namespace Judo.SchemaRegistryClient
                     throw new Exception("Too many schema objects created for " + subject + "!");
                 }
                 var id = await RegisterAndGetIdAsync(subject, schema);
-                schemaIdDictionary.Add(schema.ToString(), id);
-                _idCache[DefaultKey].Add(id, schema);
+                schemaIdDictionary.GetOrAdd(schema.ToString(), id);
+                _idCache[DefaultKey].GetOrAdd(id, schema);
                 return id;
             }
         }
@@ -89,15 +90,15 @@ namespace Judo.SchemaRegistryClient
         public async Task<Schema> GetBySubjectAndIDAsync(string subject, int id)
         {
 
-            Dictionary<int, Schema> idSchemaDictionary;
+            ConcurrentDictionary<int, Schema> idSchemaDictionary;
             if (_idCache.ContainsKey(subject ?? DefaultKey))
             {
                 idSchemaDictionary = _idCache[subject ?? DefaultKey];
             }
             else
             {
-                idSchemaDictionary = new Dictionary<int, Schema>();
-                _idCache.Add(subject, idSchemaDictionary);
+                idSchemaDictionary = new ConcurrentDictionary<int, Schema>();
+                _idCache.GetOrAdd(subject, idSchemaDictionary);
             }
 
             if (idSchemaDictionary.ContainsKey(id))
@@ -107,7 +108,7 @@ namespace Judo.SchemaRegistryClient
             else
             {
                 var schema = await GetSchemaByIdFromRegistryAsync(id);
-                idSchemaDictionary.Add(id, schema);
+                idSchemaDictionary.GetOrAdd(id, schema);
                 return schema;
             }
         }
@@ -126,15 +127,15 @@ namespace Judo.SchemaRegistryClient
 
         public async Task<int> GetVersionAsync(string subject, Schema schema)
         {
-            Dictionary<string, int> schemaVersionDictionary;
+            ConcurrentDictionary<string, int> schemaVersionDictionary;
             if (_versionCache.ContainsKey(subject))
             {
                 schemaVersionDictionary = _versionCache[subject];
             }
             else
             {
-                schemaVersionDictionary = new Dictionary<string, int>();
-                _versionCache.Add(subject, schemaVersionDictionary);
+                schemaVersionDictionary = new ConcurrentDictionary<string, int>();
+                _versionCache.GetOrAdd(subject, schemaVersionDictionary);
             }
 
             if (schemaVersionDictionary.ContainsKey(schema.ToString()))
@@ -148,7 +149,7 @@ namespace Judo.SchemaRegistryClient
                     throw new Exception("Too many schema objects created for " + subject + "!");
                 }
                 var version = await GetVersionFromRegistryAsync(subject, schema);
-                schemaVersionDictionary.Add(schema.ToString(), version);
+                schemaVersionDictionary.GetOrAdd(schema.ToString(), version);
                 return version;
             }
         }

@@ -2,6 +2,7 @@
 using Microsoft.Hadoop.Avro;
 using System.Linq.Expressions;
 using System;
+using System.Threading;
 
 namespace Judo.SchemaRegistryClient.Tests
 {
@@ -21,8 +22,6 @@ namespace Judo.SchemaRegistryClient.Tests
             Assert.NotNull(returnedSchema);
             Assert.True(response > 0);
         }
-
-
     }
 
     public class TestMessageModel
